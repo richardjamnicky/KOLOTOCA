@@ -1,15 +1,17 @@
 body {
   font-family: 'Segoe UI', sans-serif;
-  background: #f5f6fa;
-  color: #333;
+  background: white; /* bolo #f5f6fa */
+  color: #000;        /* čierny text */
   margin: 0;
   padding: 0 1rem;
 }
+
 header {
-  background: #283593;
-  color: white;
+  background: white; /* odstráni modré pole */
+  color: #000;       /* čierny nadpis */
   text-align: center;
-  padding: 2rem;
+  padding: 2rem 0;
+  border-bottom: 2px solid #e0e0e0; /* voliteľne jemná čiara pod titulom */
 }
 main {
   max-width: 900px;
