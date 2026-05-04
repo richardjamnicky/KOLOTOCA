@@ -55,7 +55,7 @@ pre {
 .button {
   display: inline-block;
   margin-top: 1rem;
-  background: #3949ab;
+  background: red;
   color: white;
   padding: 0.5rem 1rem;
   text-decoration: none;
