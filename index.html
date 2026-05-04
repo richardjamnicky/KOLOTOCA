@@ -49,6 +49,20 @@
   <footer>
     <p>© 2026 Richard Jamnický – Projekt: Web Security</p>
   </footer>
+  
+  <script>
+  // Uloženie pozície scrollu pred odchodom
+  window.addEventListener("beforeunload", () => {
+    localStorage.setItem("scrollPos", window.scrollY);
+  });
+
+  // Obnovenie pozície scrollu po návrate
+  window.addEventListener("load", () => {
+    const y = localStorage.getItem("scrollPos");
+    if (y !== null) window.scrollTo(0, y);
+  });
+</script>
+
 </body>
 </html>
 
