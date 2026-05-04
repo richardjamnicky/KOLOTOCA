@@ -5,38 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Injection útoky – Projekt</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    /* menší štýl pre menu, ak ešte nemáš style.css */
+    nav {
+      background: #283593;
+      padding: 1rem;
+      text-align: center;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 1rem;
+      font-weight: bold;
+    }
+    nav a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Injection útoky</h1>
-    <p>Analýza zraniteľností webových aplikácií</p>
+    <h1>Injection útoky (XSS / Command Injection / Script Injection)</h1>
+    <p>Toto je môj projekt o bezpečnostných zraniteľnostiach webových aplikácií.</p>
   </header>
+  <nav>
+    <a href="index.html">Domov</a>
+    <a href="sqlinjection.html" target="_blank">SQL Injection</a>
+    <a href="xss.html" target="_blank">XSS</a>
+    <a href="xxe.html" target="_blank">XXE Injection</a>
+  </nav>
   <main>
     <section>
       <h2>O projekte</h2>
       <p>
-        Tento projekt sa zameriava na rôzne druhy <strong>injection útokov</strong>, ktoré umožňujú útočníkom
-        manipulovať s aplikáciami, obísť autentifikáciu, alebo získať citlivé dáta.
+        Tento projekt sa venuje zraniteľnostiam, ktoré vznikajú pri nesprávnom spracovaní vstupu od používateľa.
+        Ukazuje, ako injection útoky umožňujú útočníkom vykonať škodlivý kód alebo získať citlivé údaje.
       </p>
-      <p>
-        V dokumente a laboratórnych cvičeniach sú detailne spracované:
-      </p>
+    </section>
+    <section>
+      <h2>Dokumentácia</h2>
+      <p>Celý projektový dokument si môžeš pozrieť alebo stiahnuť tu:</p>
+      <!-- TU je tvoj PDF odkaz -->
+      <a class="button" href="Document%207.pdf" target="_blank">📄 Otvoriť PDF dokument</a>
+    </section>
+    <section>
+      <h2>Dostupné podstránky</h2>
       <ul>
         <li><a href="sqlinjection.html" target="_blank">SQL Injection</a></li>
         <li><a href="xss.html" target="_blank">Cross-Site Scripting (XSS)</a></li>
         <li><a href="xxe.html" target="_blank">XXE Injection</a></li>
       </ul>
     </section>
-    <section>
-      <h2>Dokumentácia</h2>
-      <p>
-        Celý projektový dokument si môžeš pozrieť tu:
-        <a class="button" href="Document7.pdf" target="_blank">📄 Otvoriť PDF</a>
-      </p>
-    </section>
   </main>
   <footer>
-    <p>© 2026 Tvoje meno – Bezpečnosť webových aplikácií</p>
+    <p>© 2026 Richard Jamnický – Projekt: Web Security</p>
   </footer>
 </body>
 </html>
