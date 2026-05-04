@@ -2,26 +2,64 @@
 <html lang="sk">
 <head>
   <meta charset="UTF-8">
-  <title>XXE Injection</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>XXE Injection</title>
   <link rel="stylesheet" href="style.css">
+  <style>
+    .demo-box {
+      border: 1px solid #ccc;
+      padding: 1rem;
+      background: #fafafa;
+      margin-top: 1rem;
+    }
+    textarea {
+      width: 100%;
+      height: 150px;
+    }
+  </style>
 </head>
 <body>
-  <h1>XXE Injection (XML External Entity)</h1>
-  <p>
-    <strong>XXE útok</strong> zneužíva parsovanie XML dát, kde je povolené načítanie externých entít.
-    Útočník tým môže čítať citlivé súbory zo servera alebo spôsobiť DoS útok.
-  </p>
-  <h2>Príklad</h2>
-  <pre>
-&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
-&lt;data&gt;&amp;xxe;&lt;/data&gt;
-  </pre>
-  <h2>Ochrana</h2>
-  <ul>
-    <li>Zakáž parsovanie externých entít v XML parseri.</li>
-    <li>Validuj všetky vstupné XML dáta.</li>
-    <li>Používaj bezpečné knižnice.</li>
-  </ul>
-  <a class="button" href="index.html">⬅️ Späť na hlavnú stránku</a>
+  <header>
+    <h1>XXE Injection (XML External Entity)</h1>
+  </header>
+  <main>
+    <h2>Vysvetlenie</h2>
+    <p>
+      XXE útok zneužíva nesprávne nastavený XML parser, ktorý umožňuje načítať externé súbory alebo URL.  
+      Útočník tak môže čítať interné konfiguračné súbory zo servera.  
+    </p>
+    <h2>Simulácia</h2>
+    <p>
+      Vlož tu jednoduchý XML dokument a skús ho „spracovať“.  
+      Pri bežnom texte to bude v poriadku.  
+      Ale ak by bola povolená externá entita ako v nasledujúcom príklade, bolo by to nebezpečné:
+    </p>
+    <pre>
+&lt;!DOCTYPE data [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+&lt;root&gt;&amp;xxe;&lt;/root&gt;
+    </pre>
+    <div class="demo-box">
+      <textarea id="xmlInput" placeholder="Tu vlož XML..."></textarea><br>
+      <button onclick="parseXML()">Spracovať XML</button>
+      <h3>Výstup:</h3>
+      <div id="xmlOutput" style="background:#fff; border:1px solid #ddd; padding:0.5rem;"></div>
+    </div>
+    <script>
+      function parseXML() {
+        const text = document.getElementById('xmlInput').value;
+        try {
+          const parser = new DOMParser();
+          const xml = parser.parseFromString(text, "text/xml");
+          const pretty = new XMLSerializer().serializeToString(xml);
+          document.getElementById('xmlOutput').textContent = pretty;
+        } catch (e) {
+          document.getElementById('xmlOutput').textContent = "Chyba v XML: " + e.message;
+        }
+      }
+    </script>
+    <a class="button" href="index.html">⬅️ Späť na hlavnú stránku</a>
+  </main>
+  <footer>
+    <p>© 2026 Richard Jamnický – XXE demo</p>
+  </footer>
 </body>
-</html>
