@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>Cross-Site Scripting (XSS)</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>Cross-Site Scripting (XSS)</h1>
+  <p>XSS je typ útoku, ktorý umožňuje útočníkovi vložiť škodlivý JavaScript kód do webovej stránky, 
+     ktorý sa potom vykoná v prehliadači obete.</p>
+  <h2>Typy XSS</h2>
+  <ul>
+    <li><strong>Reflected XSS</strong> – škodlivý kód sa odrazí priamo v odpovedi servera.</li>
+    <li><strong>Stored XSS</strong> – kód sa uloží do databázy a spustí sa u každého používateľa.</li>
+    <li><strong>DOM-based XSS</strong> – útok je spustený v prehliadači, bez zásahu servera.</li>
+  </ul>
+  <h2>Príklad</h2>
+  <pre>
+&lt;input type="text" value="&lt;script&gt;alert('XSS');&lt;/script&gt;"&gt;
+  </pre>
+  <a class="button" href="index.html">⬅️ Späť na hlavnú stránku</a>
+</body>
+</html>
