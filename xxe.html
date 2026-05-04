@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>XXE Injection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>XXE Injection (XML External Entity)</h1>
+  <p>
+    <strong>XXE útok</strong> zneužíva parsovanie XML dát, kde je povolené načítanie externých entít.
+    Útočník tým môže čítať citlivé súbory zo servera alebo spôsobiť DoS útok.
+  </p>
+  <h2>Príklad</h2>
+  <pre>
+&lt;!DOCTYPE foo [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+&lt;data&gt;&amp;xxe;&lt;/data&gt;
+  </pre>
+  <h2>Ochrana</h2>
+  <ul>
+    <li>Zakáž parsovanie externých entít v XML parseri.</li>
+    <li>Validuj všetky vstupné XML dáta.</li>
+    <li>Používaj bezpečné knižnice.</li>
+  </ul>
+  <a class="button" href="index.html">⬅️ Späť na hlavnú stránku</a>
+</body>
+</html>
