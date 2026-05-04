@@ -3,14 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cross-Site Scripting (XSS)</title>
+  <title>XSS – Cross-Site Scripting</title>
   <link rel="stylesheet" href="style.css">
   <style>
-    .input-test {
+    .demo-box {
       border: 1px solid #ccc;
       padding: 1rem;
       background: #fafafa;
       margin-top: 1rem;
+    }
+    .output {
+      background: #fff;
+      border: 1px solid #ddd;
+      padding: 0.5rem;
+      min-height: 1.5rem;
+      margin-top: 0.5rem;
     }
   </style>
 </head>
@@ -18,42 +25,43 @@
   <header>
     <h1>Cross-Site Scripting (XSS)</h1>
   </header>
-
   <main>
     <h2>Vysvetlenie</h2>
     <p>
-      <strong>XSS</strong> je chyba, pri ktorej programátor neskontroluje vstupné údaje od používateľa a tieto údaje sa potom zobrazia na webovej stránke.  
-      Útočník môže vložiť škodlivý JavaScript, ktorý sa potom vykoná v prehliadači.  
+      <strong>XSS</strong> je zraniteľnosť, kde aplikácia nekontroluje správne vstupné údaje a tie sa zobrazia na stránke ako HTML/JS.  
+      Útočník tak môže vložiť škodlivý kód, ktorý sa v prehliadači používateľa vykoná.
     </p>
-
-    <h2>Praktický príklad</h2>
+    <h2>Skús si ukážku</h2>
     <p>
-      V políčku nižšie napíš niečo (bezpečne) a klikni na tlačidlo „Zobraziť text“.  
-      Skús potom zadať niečo nebezpečné ako <code>&lt;script&gt;alert('Test XSS!')&lt;/script&gt;</code> a uvidíš, čo sa stane.
+      Zadaj ľubovoľný text a klikni na „Zobraziť výstup“.  
+      Potom skús vložiť <code>&lt;script&gt;alert('Hack!')&lt;/script&gt;</code> a uvidíš, čo sa stane.  
+      Takto funguje neosetrené vloženie JavaScriptu na stránku.
     </p>
-
-    <div class="input-test">
-      <label for="userInput">Zadaj text:</label><br>
-      <input type="text" id="userInput" style="width:60%;" placeholder="napr. Ahoj svet">
-      <button onclick="showInput()">Zobraziť text</button>
-
-      <p><strong>Výsledok:</strong></p>
-      <div id="output" style="padding:0.5rem; background:#fff; border:1px solid #ddd;"></div>
+    <div class="demo-box">
+      <input type="text" id="xssInput" placeholder="napr. ahoj svet" style="width:70%;">
+      <button onclick="runXSS()">Zobraziť výstup</button>
+      <h3>Výstup:</h3>
+      <div id="xssOutput" class="output"></div>
     </div>
-
     <script>
-      function showInput() {
-        // tu je schválne XSS zraniteľnosť na ukážku
-        const text = document.getElementById('userInput').value;
-        document.getElementById('output').innerHTML = text;
+      function runXSS() {
+        const input = document.getElementById('xssInput').value;
+        // Schválne zraniteľné – na ukážku
+        document.getElementById('xssOutput').innerHTML = input;
       }
     </script>
-
+    <section>
+      <h2>Ochrana</h2>
+      <ul>
+        <li>Escape-uj HTML špeciálne znaky (&lt;, &gt;, „ atď.).</li>
+        <li>Používaj bezpečné templatovacie nástroje (React, Angular).</li>
+        <li>Nefiltruj len zakázané slová – validuj typ vstupu (číselný, textový a pod.).</li>
+      </ul>
+    </section>
     <a class="button" href="#" onclick="window.history.back(); return false;">⬅️ Späť</a>
   </main>
-
   <footer>
-    <p>© 2026 Richard Jamnický – Cross-Site Scripting demo</p>
+    <p>© 2026 Richard Jamnický – XSS Demo</p>
   </footer>
 </body>
 </html>
