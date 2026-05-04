@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8">
+  <title>SQL Injection</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <h1>SQL Injection</h1>
+  <p>
+    <strong>SQL Injection</strong> nastáva, keď aplikácia vkladá používateľský vstup priamo do SQL príkazu bez správnej validácie.
+    Útočník tak môže manipulovať dotaz a získať prístup k databáze.
+  </p>
+  <h2>Príklad</h2>
+  <pre>
+SELECT * FROM users WHERE username = 'admin' AND password = '';
+  OR '1'='1';
+  </pre>
+  <p>
+    Ak aplikácia tento vstup nesprávne spracuje, môže útočník získať zoznam všetkých používateľov.
+  </p>
+  <h2>Ochrana</h2>
+  <ul>
+    <li>Používaj parameterizované dotazy alebo ORM.</li>
+    <li>Vždy validuj a escapuj vstupy.</li>
+    <li>Nepoužívaj string concatenation v SQL dotazoch.</li>
+  </ul>
+  <a class="button" href="index.html">⬅️ Späť na hlavnú stránku</a>
+</body>
+</html>
