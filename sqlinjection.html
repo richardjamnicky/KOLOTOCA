@@ -12,50 +12,72 @@
       background: #fafafa;
       margin-top: 1rem;
     }
-    code {
+
+    .query {
       background: #f2f2f2;
-      padding: 2px 4px;
-      border-radius: 3px;
+      padding: 0.7rem;
+      border-radius: 5px;
+      font-family: monospace;
+      margin-top: 0.5rem;
+      white-space: pre-wrap;
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>SQL Injection</h1>
+    <h1>SQL Injection</h1>
   </header>
+
   <main>
     <h2>Vysvetlenie</h2>
     <p>
-      SQL Injection nastáva, keď aplikácia nevhodne spája vstup od používateľa s SQL príkazom.  
-      Útočník potom môže manipulovať s dotazom a získať inak chránené dáta.
+      <strong>SQL Injection</strong> nastáva, keď aplikácia nevhodne vkladá vstup od používateľa priamo do SQL dotazu.  
+      Ak tento vstup nie je overený ani ošetrený, útočník dokáže dotaz zmeniť a získať dáta, ktoré by nemal vidieť.
     </p>
-    <h2>Skús si simuláciu</h2>
+
+    <h2>Skús si príklad</h2>
     <p>
-      Napíš meno používateľa a heslo (ľubovoľné).  
-      Potom skús namiesto hesla zadať <code>' OR '1'='1</code> a zváž, čo by sa v skutočnom SQL dotaze stalo.  
-      Toto je typický príklad zneužitia.
+      Do týchto dvoch polí zadaj meno a heslo, a klikni na „Zobraziť SQL dotaz“.  
+      Potom napíš napríklad:<br>
+      <code>' OR '1'='1</code> → uvidíš, ako sa vygeneruje nebezpečný dotaz, ktorý umožní prístup bez správneho hesla.
     </p>
+
     <div class="demo-box">
-      <label>Používateľ:</label><br>
-      <input type="text" id="user" value="admin"><br><br>
+      <label>Meno používateľa:</label><br>
+      <input type="text" id="user" placeholder="napr. admin"><br><br>
+
       <label>Heslo:</label><br>
-      <input type="text" id="pass" value=""><br><br>
-      <button onclick="simulateSQL()">Zobraziť SQL dotaz</button>
-      <h3>Simulovaný dotaz:</h3>
-      <div id="sqlOut" style="background:#fff; border:1px solid #ddd; padding:0.5rem;"></div>
+      <input type="text" id="pass" placeholder="napr. 12345"><br><br>
+
+      <button onclick="showQuery()">Zobraziť SQL dotaz</button>
+
+      <div class="query" id="result"></div>
     </div>
+
     <script>
-      function simulateSQL() {
+      function showQuery() {
         const user = document.getElementById('user').value;
         const pass = document.getElementById('pass').value;
-        const query = "SELECT * FROM users WHERE username = '" + user + "' AND password = '" + pass + "'";
-        document.getElementById('sqlOut').textContent = query;
+        const query = `SELECT * FROM users WHERE username = '${user}' AND password = '${pass}'`;
+        document.getElementById('result').textContent = query;
       }
     </script>
+
+    <section>
+      <h2>Ochrana proti SQL Injection</h2>
+      <ul>
+        <li>Používaj parameterizované dotazy alebo ORM (napr. Prisma, SQLAlchemy).</li>
+        <li>Validuj a escape‑uj všetky vstupy od používateľov.</li>
+        <li>Nepoužívaj reťazenie stringov v SQL dotazoch.</li>
+      </ul>
+    </section>
+
     <a class="button" href="#" onclick="window.history.back(); return false;">⬅️ Späť</a>
   </main>
+
   <footer>
-    <p>© 2026 Richard Jamnický – SQL Injection demo</p>
+    <p>© 2026 Richard Jamnický – SQL Injection Demo</p>
   </footer>
 </body>
 </html>
+
