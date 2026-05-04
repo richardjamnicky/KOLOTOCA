@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>XXE Injection</title>
+  <title>XXE Injection (XML External Entity)</title>
   <link rel="stylesheet" href="style.css">
   <style>
     .demo-box {
@@ -16,50 +16,67 @@
       width: 100%;
       height: 150px;
     }
+    pre {
+      background: #f2f2f2;
+      padding: 0.7rem;
+      border-radius: 5px;
+      overflow-x: auto;
+    }
   </style>
 </head>
 <body>
   <header>
-    <h1>XXE Injection (XML External Entity)</h1>
+    <h1>XXE Injection (XML External Entity)</h1>
   </header>
   <main>
     <h2>Vysvetlenie</h2>
     <p>
-      XXE útok zneužíva nesprávne nastavený XML parser, ktorý umožňuje načítať externé súbory alebo URL.  
-      Útočník tak môže čítať interné konfiguračné súbory zo servera.  
+      <strong>XXE Injection</strong> zneužíva nebezpečne nastavený XML parser, ktorý umožní načítať externé entity (súbory alebo URL).  
+      Takto môže útočník čítať súbory zo servera alebo spôsobiť DoS útok.
     </p>
-    <h2>Simulácia</h2>
+    <h2>Skús si príklad</h2>
     <p>
-      Vlož tu jednoduchý XML dokument a skús ho „spracovať“.  
-      Pri bežnom texte to bude v poriadku.  
-      Ale ak by bola povolená externá entita ako v nasledujúcom príklade, bolo by to nebezpečné:
+      Vlož sem jednoduchý XML dokument a klikni „Spracovať XML“.  
+      Potom skús vložiť príklad s entitou ako:
     </p>
     <pre>
-&lt;!DOCTYPE data [ &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt; ]&gt;
+&lt;!DOCTYPE data [
+  &lt;!ENTITY xxe SYSTEM "file:///etc/passwd"&gt;
+]&gt;
 &lt;root&gt;&amp;xxe;&lt;/root&gt;
     </pre>
     <div class="demo-box">
-      <textarea id="xmlInput" placeholder="Tu vlož XML..."></textarea><br>
+      <textarea id="xmlInput" placeholder="Tu vlož svoj XML kód..."></textarea><br>
       <button onclick="parseXML()">Spracovať XML</button>
       <h3>Výstup:</h3>
-      <div id="xmlOutput" style="background:#fff; border:1px solid #ddd; padding:0.5rem;"></div>
+      <pre id="xmlOutput"></pre>
     </div>
     <script>
       function parseXML() {
-        const text = document.getElementById('xmlInput').value;
+        const src = document.getElementById('xmlInput').value;
         try {
+          // Simulácia - parser zneškodnený, len ukazuje výstup
           const parser = new DOMParser();
-          const xml = parser.parseFromString(text, "text/xml");
-          const pretty = new XMLSerializer().serializeToString(xml);
-          document.getElementById('xmlOutput').textContent = pretty;
-        } catch (e) {
-          document.getElementById('xmlOutput').textContent = "Chyba v XML: " + e.message;
+          const xml = parser.parseFromString(src, "text/xml");
+          const serialized = new XMLSerializer().serializeToString(xml);
+          document.getElementById('xmlOutput').textContent = serialized;
+        } catch (err) {
+          document.getElementById('xmlOutput').textContent = "Chyba pri spracovaní XML: " + err.message;
         }
       }
     </script>
+    <section>
+      <h2>Ochrana</h2>
+      <ul>
+        <li>Zakáž používanie externých entít v XML parseri.</li>
+        <li>Validuj všetky XML vstupy pred spracovaním.</li>
+        <li>Na spracovanie používaj bezpečné knižnice (DOMParser v režime bez entít, defusedxml v Pythone atď.).</li>
+      </ul>
+    </section>
     <a class="button" href="#" onclick="window.history.back(); return false;">⬅️ Späť</a>
   </main>
   <footer>
-    <p>© 2026 Richard Jamnický – XXE demo</p>
+    <p>© 2026 Richard Jamnický – XXE Demo</p>
   </footer>
 </body>
+</html>
